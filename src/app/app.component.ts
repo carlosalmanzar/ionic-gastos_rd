@@ -7,7 +7,6 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
 
-
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { ListCompanyPage } from '../pages/list-company/list-company';
 
@@ -24,7 +23,6 @@ export class MyApp {
 	private platform;
   private menu: MenuController;
 
-
   constructor(
     app: App, 
     platform: Platform, 
@@ -37,22 +35,10 @@ export class MyApp {
     this.menu = menu;
     this.platform = platform;
     this.initializeApp();   
-
-
-    // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage },
-      { title: 'Compañias', component: ListCompanyPage }
-    ];
-
-    
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
@@ -62,8 +48,14 @@ export class MyApp {
       user => {
         if (user) {
           this.rootPage = HomePage;
+          this.pages = [
+            { title: 'Home', component: HomePage },
+            { title: 'List', component: ListPage },
+            { title: 'Compañias', component: ListCompanyPage }
+          ];
         } else {
           this.rootPage = LoginPage;
+          this.pages = [];
         }
       },
       () => {

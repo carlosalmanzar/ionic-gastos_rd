@@ -21,6 +21,10 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { SignupPage } from '../pages/signup/signup';
 import { ListCompanyPage } from '../pages/list-company/list-company';
 import { CreateCompanyPage } from '../pages/create-company/create-company';
+import { CompanyServiceProvider } from '../providers/company-service/company-service';
+import { HttpClient } from '@angular/common/http';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { DetailCompanyPage } from '../pages/detail-company/detail-company';
 
 @NgModule({
   declarations: [
@@ -30,14 +34,16 @@ import { CreateCompanyPage } from '../pages/create-company/create-company';
     LoginPage, 
     SignupPage,
     CreateCompanyPage,
-    ListCompanyPage
+    ListCompanyPage,
+    DetailCompanyPage
   ],
   imports: [
     BrowserModule,
     HttpModule,
     NgxErrorsModule,
     IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(firebaseConfig.fire)
+    AngularFireModule.initializeApp(firebaseConfig.fire),
+    AngularFirestoreModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -47,15 +53,18 @@ import { CreateCompanyPage } from '../pages/create-company/create-company';
     LoginPage,
     SignupPage,
     CreateCompanyPage,
-    ListCompanyPage
+    ListCompanyPage,
+    DetailCompanyPage
   ],
   providers: [
     Config,
     StatusBar,
     SplashScreen,
     AngularFireAuth,
+    HttpClient,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthServiceProvider
+    AuthServiceProvider,
+    CompanyServiceProvider
   ]
 })
 export class AppModule {}
