@@ -25,17 +25,19 @@ import { CompanyServiceProvider } from '../providers/company-service/company-ser
 import { HttpClient } from '@angular/common/http';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { DetailCompanyPage } from '../pages/detail-company/detail-company';
+import { ExpenseServiceProvider } from '../providers/expense-service/expense-service';
+import { ListExpensePage } from '../pages/list-expense/list-expense';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
-    LoginPage, 
+    LoginPage,
     SignupPage,
     CreateCompanyPage,
-    ListCompanyPage,
-    DetailCompanyPage
+    ListExpensePage,
+    ListCompanyPage
   ],
   imports: [
     BrowserModule,
@@ -54,7 +56,7 @@ import { DetailCompanyPage } from '../pages/detail-company/detail-company';
     SignupPage,
     CreateCompanyPage,
     ListCompanyPage,
-    DetailCompanyPage
+    ListExpensePage
   ],
   providers: [
     Config,
@@ -62,9 +64,10 @@ import { DetailCompanyPage } from '../pages/detail-company/detail-company';
     SplashScreen,
     AngularFireAuth,
     HttpClient,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthServiceProvider,
-    CompanyServiceProvider
+    CompanyServiceProvider,
+    ExpenseServiceProvider
   ]
 })
-export class AppModule {}
+export class AppModule { }

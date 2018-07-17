@@ -16,11 +16,9 @@ export class CompanyServiceProvider {
 
   private db: any;
 
-
   constructor(public firestore: AngularFirestore) {
     this.db = firebase.firestore();
   }
-
 
   getListOfCompany(): AngularFirestoreCollection<any> {
     return this.firestore.collection('company');
@@ -51,8 +49,6 @@ export class CompanyServiceProvider {
           reject(error);
         });
     });
-
-
   }
 
   addCompany(dataObj: any): Promise<any> {
@@ -84,16 +80,16 @@ export class CompanyServiceProvider {
 
   deleteCompany(docID: string): Promise<any> {
     return new Promise((resolve, reject) => {
-        this.db
-            .collection('company')
-            .doc(docID)
-            .delete()
-            .then((obj: any) => {
-                resolve(obj);
-            })
-            .catch((error: any) => {
-                reject(error);
-            });
+      this.db
+        .collection('company')
+        .doc(docID)
+        .delete()
+        .then((obj: any) => {
+          resolve(obj);
+        })
+        .catch((error: any) => {
+          reject(error);
+        });
     });
   }
 }

@@ -9,6 +9,7 @@ import { LoginPage } from '../pages/login/login';
 
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { ListCompanyPage } from '../pages/list-company/list-company';
+import { ListExpensePage } from '../pages/list-expense/list-expense';
 
 @Component({
   templateUrl: 'app.html'
@@ -51,7 +52,8 @@ export class MyApp {
           this.pages = [
             { title: 'Home', component: HomePage },
             { title: 'List', component: ListPage },
-            { title: 'Compañias', component: ListCompanyPage }
+            { title: 'Compañias', component: ListCompanyPage },
+            { title: 'Gastos', component: ListExpensePage }
           ];
         } else {
           this.rootPage = LoginPage;

@@ -23,41 +23,36 @@ export class ListCompanyPage {
   selectedItem: any;
   icons: string[];
   public companyList: Observable<any[]>;
-  public com : Observable<any[]>;
-  public companies : Company[];
+  public com: Observable<any[]>;
+  public companies: Company[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public companyService: CompanyServiceProvider, public loadingCtrl: LoadingController) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
-
-    
-    //this.loadData();
   }
 
   itemTapped(event, item) {
-    // That's right, we're pushing to ourselves!
     this.navCtrl.push(CreateCompanyPage, {
       item: item
     });
   }
+
   ionViewDidLoad() {
     //this.companyList = this.companyService.getListOfCompany().valueChanges();
+    //this.loadData()
+  }
+
+  ionViewWillEnter() {
     this.loadData()
   }
 
-
-  ionViewWillEnter(){
-    this.loadData()
-  }
-
-
-  loadData(){
+  loadData() {
     let loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
     loading.present();
 
-    this.companyService.getAllCompany().then((e)=>{
+    this.companyService.getAllCompany().then((e) => {
       this.companies = e;
       console.log(this.companies);
       loading.dismiss();
@@ -66,7 +61,7 @@ export class ListCompanyPage {
 
   public addItem() {
     this.navCtrl.push(CreateCompanyPage);
-	}
+  }
 
 }
 

@@ -67,8 +67,8 @@ export class CreateCompanyPage {
           message: 'Agregado exitosamente!',
           duration: 3000
         });
+        this.clearForm();
         toast.present();
-
         this.navCtrl.pop();
       });
     } else {
@@ -79,17 +79,17 @@ export class CreateCompanyPage {
           message: 'Modificado exitosamente!',
           duration: 3000
         });
-
+        this.clearForm();
         toast.present();
         this.navCtrl.pop();
       });
     }
+  }
+
+  clearForm(){
     this.isEditing = false;
-    //clear form
     this.company.name = '';
     this.company.rnc = '';
     this.company.uid = '';
   }
-
-
 }
