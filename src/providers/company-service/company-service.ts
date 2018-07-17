@@ -81,4 +81,19 @@ export class CompanyServiceProvider {
         });
     });
   }
+
+  deleteCompany(docID: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+        this.db
+            .collection('company')
+            .doc(docID)
+            .delete()
+            .then((obj: any) => {
+                resolve(obj);
+            })
+            .catch((error: any) => {
+                reject(error);
+            });
+    });
+  }
 }

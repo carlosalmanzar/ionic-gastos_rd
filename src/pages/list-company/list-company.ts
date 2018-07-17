@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, Loading } from 'ionic-angular';
 import { CreateCompanyPage } from '../create-company/create-company';
 import { CompanyServiceProvider } from '../../providers/company-service/company-service';
 import { Company } from 'models/company';
@@ -26,9 +26,11 @@ export class ListCompanyPage {
   public com : Observable<any[]>;
   public companies : Company[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public companyService: CompanyServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public companyService: CompanyServiceProvider, public loadingCtrl: LoadingController) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
+
+    
     //this.loadData();
   }
 
@@ -43,10 +45,22 @@ export class ListCompanyPage {
     this.loadData()
   }
 
+
+  ionViewWillEnter(){
+    this.loadData()
+  }
+
+
   loadData(){
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    loading.present();
+
     this.companyService.getAllCompany().then((e)=>{
       this.companies = e;
       console.log(this.companies);
+      loading.dismiss();
     });
   }
 
