@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 import { Company } from 'models/company';
 import { AngularFirestoreCollection, AngularFirestore } from 'angularfire2/firestore';
 import * as firebase from 'firebase';
+import { AuthServiceProvider } from '../auth-service/auth-service';
 
 /*
   Generated class for the CompanyServiceProvider provider.
@@ -16,7 +18,7 @@ export class CompanyServiceProvider {
 
   private db: any;
 
-  constructor(public firestore: AngularFirestore) {
+  constructor(public firestore: AngularFirestore, public http: HttpClient, private auth: AuthServiceProvider) {
     this.db = firebase.firestore();
   }
 
@@ -24,9 +26,13 @@ export class CompanyServiceProvider {
     return this.firestore.collection('company');
   }
 
+  getContribuyentes(cedula) {
+    return this.http.get('http://adamix.net/gastosrd/api.php?act=GetContribuyentes&rnc='+ cedula);
+  }
+
   getAllCompany(): Promise<Company[]> {
     return new Promise((resolve, reject) => {
-      this.db.collection('company')
+      this.db.collection('company').where("uid", "==", this.auth.afAuth.auth.currentUser.uid)
         .get()
         .then((querySnapshot) => {
           let arr: Company[] = [];

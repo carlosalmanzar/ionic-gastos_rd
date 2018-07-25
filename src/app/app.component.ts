@@ -4,7 +4,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
 
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
@@ -51,7 +50,6 @@ export class MyApp {
           this.rootPage = HomePage;
           this.pages = [
             { title: 'Home', component: HomePage },
-            { title: 'List', component: ListPage },
             { title: 'Compañias', component: ListCompanyPage },
             { title: 'Gastos', component: ListExpensePage }
           ];

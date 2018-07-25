@@ -10,24 +10,30 @@
 <ion-content padding>
 
   <ion-list>
-    <ion-item>
-      <ion-label floating>Nombre</ion-label>
-      <ion-input type="text" [(ngModel)]="company.name"></ion-input>
-    </ion-item>
+
     <ion-item>
       <ion-label floating>Rnc</ion-label>
       <ion-input type="text" [(ngModel)]="company.rnc"></ion-input>
     </ion-item>
+    <ion-item>
+      <ion-label floating>Nombre</ion-label>
+      <ion-input type="text" disabled="true" [(ngModel)]="company.name"></ion-input>
+    </ion-item>
   </ion-list>
 
+  <ion-item (click)="getRnc()">
+    <ion-icon name="log-out" item-left></ion-icon>
+    Obtener nombre
+  </ion-item>
+
   <ion-item (click)="delete()" *ngIf="isEditing">
-      <ion-icon name="log-out" item-left></ion-icon>
-      Eliminar
+    <ion-icon name="log-out" item-left></ion-icon>
+    Eliminar
   </ion-item>
 
   <ion-item (click)="save()">
-      <ion-icon name="log-out" item-left></ion-icon>
-      Guardar
+    <ion-icon name="log-out" item-left></ion-icon>
+    Guardar
   </ion-item>
 
 

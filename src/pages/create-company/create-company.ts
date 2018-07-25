@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { Company } from 'models/company';
 import { CompanyServiceProvider } from '../../providers/company-service/company-service';
+import { DgiiServiceProvider } from '../../providers/dgii-service/dgii-service';
+import { Rnc } from 'models/rnc';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 /**
  * Generated class for the CreateCompanyPage page.
@@ -19,12 +22,18 @@ export class CreateCompanyPage {
 
   company: Company;
   isEditing: boolean = true;
+  rnc: Rnc;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public companyService: CompanyServiceProvider
-    , public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public companyService: CompanyServiceProvider, public loadingCtrl: LoadingController,
+    public toastCtrl: ToastController, public dgiiService: DgiiServiceProvider,
+    private auth: AuthServiceProvider) {
+
+      
     this.company = navParams.get('item');
     if (this.company == null) {
       this.isEditing = false;
+
 
       this.company = {
         key: '',
@@ -33,13 +42,58 @@ export class CreateCompanyPage {
         uid: ''
       }
     }
+
+    this.rnc = {
+      RGE_NOMBRE: '',
+      RGE_RUC: ''
+    }
   }
 
   ionViewDidLoad() {
-
+    let toast = this.toastCtrl.create({
+      message: 'Token: ' + this.auth.afAuth.idToken + '  state:' + this.auth.afAuth.authState + ' id: ' + this.auth.afAuth.auth.currentUser.uid,
+      duration: 3000
+    })
+    toast.present();
   }
 
-  delete(){
+  getRnc() {
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    loading.present();
+
+    this.dgiiService.getContribuyentes(this.company.rnc).
+      subscribe(
+        (data) => {
+          this.rnc = data;
+          let toast;
+          if (data == 0) {
+            loading.dismiss();
+            toast = this.toastCtrl.create({
+              message: 'No encontre nada con este identificador :(',
+              duration: 3000
+            });
+
+          } else {
+            this.company.name = this.rnc.RGE_NOMBRE
+            console.log('RNC: ' + this.rnc.RGE_NOMBRE + ' ' + this.rnc.RGE_RUC);
+            loading.dismiss();
+            toast = this.toastCtrl.create({
+              message: 'Busqueda exitosa!',
+              duration: 3000
+            });
+          }
+          toast.present();
+
+        }, (error) => {
+
+          console.error(error)
+        }
+      )
+  }
+
+  delete() {
     let loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
@@ -56,8 +110,7 @@ export class CreateCompanyPage {
       content: 'Please wait...'
     });
     loading.present();
-
-    
+    this.company.uid = this.auth.afAuth.auth.currentUser.uid
 
     if (!this.isEditing) {
       this.companyService.addCompany(this.company).then(() => {
@@ -86,8 +139,7 @@ export class CreateCompanyPage {
     }
   }
 
-  clearForm(){
-    this.isEditing = false;
+  clearForm() {
     this.company.name = '';
     this.company.rnc = '';
     this.company.uid = '';

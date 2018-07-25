@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { ExpenseServiceProvider } from '../../providers/expense-service/expense-service';
 import { Expense } from 'models/expense';
+import { CreateExpensePage } from '../create-expense/create-expense';
 
 /**
  * Generated class for the ListExpensePage page.
@@ -31,9 +32,9 @@ export class ListExpensePage {
   }
 
   itemTapped(event, item) {
-    //this.navCtrl.push(, {
-    //  item: item
-    // });
+    this.navCtrl.push(CreateExpensePage, {
+      item: item
+    });
   }
 
   add(){
