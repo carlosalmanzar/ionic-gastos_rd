@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-an
 import { ExpenseServiceProvider } from '../../providers/expense-service/expense-service';
 import { Expense } from 'models/expense';
 import { CreateExpensePage } from '../create-expense/create-expense';
-
 /**
  * Generated class for the ListExpensePage page.
  *
@@ -37,14 +36,17 @@ export class ListExpensePage {
     });
   }
 
+  
+
   add(){
-    
+    this.navCtrl.push(CreateExpensePage);
   }
   
   loadData() {
     let loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
+
     loading.present();
 
     this.expenseService.getAllExpense().then((e) => {

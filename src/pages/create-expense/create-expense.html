@@ -22,18 +22,26 @@
 
   <ion-item>
     <ion-label floating>companyId</ion-label>
-    <ion-input type="text" [(ngModel)]=""></ion-input>
+    <!-- <ion-input type="text" [(ngModel)]=""></ion-input>
 
     <ion-select [(ngModel)]="expense.companyId" >
       <ion-option *ngFor="let c of list_company" value="c.key">{{ c.name }}</ion-option>
       <ion-option value="m">Male</ion-option>
-    </ion-select>
+    </ion-select> -->
 
   </ion-item>
 
   <ion-item>
+    <ion-label>Compañia</ion-label>
+    <ion-select [(ngModel)]="expense.companyId">
+      <ion-option [value]="c.key" *ngFor="let c of list_company">{{c.name}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
     <ion-label floating>date</ion-label>
-    <ion-input type="text" [(ngModel)]="expense.date"></ion-input>
+
+    <ion-datetime displayFormat="YYYY:DD:MM HH:mm" pickerFormat="YYYY:DD:MM HH:mm" [(ngModel)]="expense.date"></ion-datetime>
   </ion-item>
 
   <ion-item>

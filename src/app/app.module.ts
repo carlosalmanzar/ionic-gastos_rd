@@ -27,6 +27,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { ExpenseServiceProvider } from '../providers/expense-service/expense-service';
 import { DgiiServiceProvider } from '../providers/dgii-service/dgii-service';
+import { DatePicker } from '../../node_modules/@ionic-native/date-picker';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { DgiiServiceProvider } from '../providers/dgii-service/dgii-service';
     CompanyServiceProvider,
     ExpenseServiceProvider,
     DgiiServiceProvider,
+    DatePicker
   ]
 })
 export class AppModule { }

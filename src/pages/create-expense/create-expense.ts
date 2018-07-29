@@ -5,6 +5,7 @@ import { ExpenseServiceProvider } from '../../providers/expense-service/expense-
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { Company } from 'models/company';
 import { CompanyServiceProvider } from '../../providers/company-service/company-service';
+import { DatePicker } from '../../../node_modules/@ionic-native/date-picker';
 
 /**
  * Generated class for the CreateExpensePage page.
@@ -25,9 +26,9 @@ export class CreateExpensePage {
   list_company: Company[] = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public expenseService: ExpenseServiceProvider, public companyService: CompanyServiceProvider,
-    public loadingCtrl: LoadingController, public toastCtrl: ToastController, private auth: AuthServiceProvider) {
+    public loadingCtrl: LoadingController, public toastCtrl: ToastController, private auth: AuthServiceProvider, private datePicker: DatePicker) {
     this.expense = navParams.get('item');
-   
+
     let loading = this.loadingCtrl.create({
       content: 'Please wait...'
     });
@@ -46,13 +47,35 @@ export class CreateExpensePage {
         rnc: '',
         uid: ''
       }
+
+      this.showDate(new Date())      
+    } else {
+      this.showDate(this.expense.date)
     }
 
     this.companyService.getAllCompany().then((e) => {
       this.list_company = e;
       loading.dismiss();
     });
+  }
 
+  showDate(initialDate){
+    this.datePicker.show({
+      date: initialDate,
+      mode: 'datetime',
+      locale: 'true',
+      androidTheme: this.datePicker.ANDROID_THEMES.THEME_DEVICE_DEFAULT_DARK
+    }).then(
+      date => {
+        this.expense.date
+        let toast = this.toastCtrl.create({
+          message: 'fecha:' + date,
+          duration: 3000
+        });
+        toast.present();
+      },
+      err => console.log('Error occurred while getting date: ', err)
+    );
   }
 
   ionViewDidLoad() {

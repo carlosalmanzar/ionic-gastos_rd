@@ -75,21 +75,13 @@ export class Rnc {
         return isValid(additional, prop);
       });
     }
-  
-    function a(typ: any) {
-      return { arrayItems: typ };
-    }
-  
+    
     function u(...typs: any[]) {
       return { unionMembers: typs };
     }
   
     function o(props: { [k: string]: any }, additional: any) {
       return { props, additional };
-    }
-  
-    function m(additional: any) {
-      return { props: {}, additional };
     }
   
     function r(name: string) {
