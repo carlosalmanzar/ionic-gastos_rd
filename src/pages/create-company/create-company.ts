@@ -50,11 +50,7 @@ export class CreateCompanyPage {
   }
 
   ionViewDidLoad() {
-    let toast = this.toastCtrl.create({
-      message: 'Token: ' + this.auth.afAuth.idToken + '  state:' + this.auth.afAuth.authState + ' id: ' + this.auth.afAuth.auth.currentUser.uid,
-      duration: 3000
-    })
-    toast.present();
+    
   }
 
   getRnc() {

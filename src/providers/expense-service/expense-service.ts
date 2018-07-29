@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import * as firebase from 'firebase';
 import { Expense } from 'models/expense';
+import { AuthServiceProvider } from '../auth-service/auth-service';
 
 /*
   Generated class for the ExpenseServiceProvider provider.
@@ -14,13 +15,13 @@ export class ExpenseServiceProvider {
 
   private db: any;
 
-  constructor(public firestore: AngularFirestore) {
+  constructor(public firestore: AngularFirestore, private auth: AuthServiceProvider) {
     this.db = firebase.firestore();
   }
 
   getAllExpense(): Promise<Expense[]> {
     return new Promise((resolve, reject) => {
-      this.db.collection('expenses')
+      this.db.collection('expenses').where("uid", "==", this.auth.afAuth.auth.currentUser.uid)
         .get()
         .then((querySnapshot) => {
           let arr: Expense[] = [];

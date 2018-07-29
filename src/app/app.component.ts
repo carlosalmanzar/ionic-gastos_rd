@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { AboutPage } from '../pages/about/about';
 
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { ListCompanyPage } from '../pages/list-company/list-company';
@@ -15,26 +16,26 @@ import { ListExpensePage } from '../pages/list-expense/list-expense';
 })
 export class MyApp {
   pages;
-	rootPage;
+  rootPage;
 
-	@ViewChild(Nav) nav: Nav;
+  @ViewChild(Nav) nav: Nav;
 
   private app;
-	private platform;
+  private platform;
   private menu: MenuController;
 
   constructor(
-    app: App, 
-    platform: Platform, 
+    app: App,
+    platform: Platform,
     menu: MenuController,
-    public statusBar: StatusBar, 
-    public splashScreen: SplashScreen, 
-    private auth: AuthServiceProvider ) {
-  
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen,
+    private auth: AuthServiceProvider) {
+
     this.app = app;
     this.menu = menu;
     this.platform = platform;
-    this.initializeApp();   
+    this.initializeApp();
   }
 
   initializeApp() {
@@ -44,30 +45,34 @@ export class MyApp {
     });
 
     this.auth.afAuth.authState
-    .subscribe(
-      user => {
-        if (user) {
-          this.rootPage = HomePage;
-          this.pages = [
-            { title: 'Home', component: HomePage },
-            { title: 'Compañias', component: ListCompanyPage },
-            { title: 'Gastos', component: ListExpensePage }
-          ];
-        } else {
+      .subscribe(
+        user => {
+          if (user) {
+            this.rootPage = ListCompanyPage;
+            this.pages = [
+              { title: 'Compañias', component: ListCompanyPage },
+              { title: 'Gastos', component: ListExpensePage }
+            ];
+          } else {
+            this.rootPage = LoginPage;
+            this.pages = [];
+          }
+        },
+        () => {
           this.rootPage = LoginPage;
-          this.pages = [];
         }
-      },
-      () => {
-        this.rootPage = LoginPage;
-      }
-    );
+      );
   }
 
-	openPage(page) {
+  openPage(page) {
     this.menu.close();
     this.nav.setRoot(page.component);
-    }
+  }
+
+  showAbout() {
+    this.menu.close();
+    this.nav.push(AboutPage);
+  }
 
   login() {
     this.menu.close();

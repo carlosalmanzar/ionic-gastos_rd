@@ -35,9 +35,7 @@ export class ListExpensePage {
       item: item
     });
   }
-
   
-
   add(){
     this.navCtrl.push(CreateExpensePage);
   }

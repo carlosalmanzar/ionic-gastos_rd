@@ -48,11 +48,8 @@ export class CreateExpensePage {
         uid: ''
       }
 
-      this.showDate(new Date())      
-    } else {
-      this.showDate(this.expense.date)
     }
-
+    
     this.companyService.getAllCompany().then((e) => {
       this.list_company = e;
       loading.dismiss();

@@ -13,6 +13,7 @@ import { ListCompanyPage } from '../pages/list-company/list-company';
 import { ListExpensePage } from '../pages/list-expense/list-expense';
 import { CreateCompanyPage } from '../pages/create-company/create-company';
 import { CreateExpensePage } from '../pages/create-expense/create-expense';
+import { AboutPage } from '../pages/about/about';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -38,7 +39,8 @@ import { DatePicker } from '../../node_modules/@ionic-native/date-picker';
     CreateCompanyPage,
     CreateExpensePage,
     ListExpensePage,
-    ListCompanyPage
+    ListCompanyPage,
+    AboutPage
   ],
   imports: [
     BrowserModule,
@@ -58,7 +60,8 @@ import { DatePicker } from '../../node_modules/@ionic-native/date-picker';
     CreateCompanyPage,
     CreateExpensePage,
     ListCompanyPage,
-    ListExpensePage
+    ListExpensePage,
+    AboutPage
   ],
   providers: [
     Config,
